@@ -1,7 +1,7 @@
 # Testing Web Components with Stencil
 
-This is a starter app that shows the limitations of code coverage output when
-using puppeteer based tests.
+The purpose of this project is to define some boilerplate and configuration
+that solves common issues when testing web components built with StencilJS.
 
 ## Install
 
