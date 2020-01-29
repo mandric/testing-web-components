@@ -1,41 +1,42 @@
-# Stencil App Starter
+# Testing Web Components with Stencil
 
-Stencil is a compiler for building fast web apps using Web Components.
+This is a starter app that shows the limitations of code coverage output when
+using puppeteer based tests.
 
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
+## Install
 
-Stencil components are just Web Components, so they work in any major framework or with no framework at all. In many cases, Stencil can be used as a drop in replacement for traditional frontend frameworks given the capabilities now available in the browser, though using it as such is certainly not required.
-
-Stencil also enables a number of key capabilities on top of Web Components, in particular Server Side Rendering (SSR) without the need to run a headless browser, pre-rendering, and objects-as-properties (instead of just strings).
-
-## Getting Started
-
-To start a new project using Stencil, clone this repo to a new directory:
-
-```bash
-npm init stencil app
-```
-
-and run:
-
-```bash
-npm start
-```
-
-To build the app for production, run:
-
-```bash
-npm run build
-```
-
-To run the unit tests once, run:
+Get the code and dependencies:
 
 ```
-npm test
+git clone [this repo]
+cd [directory created]
+npm install
 ```
 
-To run the unit tests and watch for file changes during development, run:
+## Issue 1: Code Coverage Reporting
+
+There are two sets of tests running here, referred to as "unit" tests
+designated by `*.spec.*` files and and "e2e" (end to end) tests designated by
+`*.e2e.*` files.
+
+
+To get coverage output pass the `--coverage` flag to the test runner:
 
 ```
-npm run test.watch
+npx stencil test --spec --e2e --coverage
 ```
+
+Now you can view some html reporting that was generated locally:
+
+```
+open coverage/lcov-report/index.html
+```
+
+You will notice the coverage is around 69%.  If you drill further into the
+reporting by clicking on the module links you will notice the reporter has
+marked the `render` function as never called. This report is false because the
+e2e test renders the components, the reporting just fails to account for it.
+
+![istanbul report](./docs/assets/istanbul-report.png)
+![render not called](./docs/assets/render-not-called.png)
+
